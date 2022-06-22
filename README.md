@@ -1,5 +1,4 @@
 # CECS 326 Reading Assignment: Input and Output
-## 20 points
 
 ### Assignment Description
 Answer the following questions from the Chapter 5 reading from your textbook. Be complete with your answers. You may work on these questions with one or two other partners, but *all* students must submit the document individually in their own repositories along with each student's name documented with the submission.
@@ -25,7 +24,7 @@ Answer the following questions from the Chapter 5 reading from your textbook. Be
         c. Elevator algorithm (initially moving upward)
     In all cases, the arm is initially at cylinder 20.
 
-9. Describe two advantages and two disadvantages of thin client computing?
+9. Describe two advantages and two disadvantages of thin client computing.
 
 10. A notebook computer is set up to take maximum advantage of power saving features including shutting down the display and the hard disk after periods of inactivity. A user sometimes runs UNIX programs in text mode, and at other times uses the X Window System. She is surprised to find that battery life is significantly better when she uses text-only programs. Why?
 
