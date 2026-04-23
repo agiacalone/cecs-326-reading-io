@@ -1,32 +1,74 @@
-# CECS 326 Reading Assignment: Input and Output
+# CECS 326 Study Questions: Input and Output
 
-### Assignment Description
-Answer the following questions from the Chapter 5 reading from your textbook. Be complete with your answers. You may work on these questions with one or two other partners, but *all* students must submit the document individually in their own repositories along with each student's name documented with the submission.
+Ten tiered review questions covering all three sessions of the I/O unit.
+Work with one or two partners if you want, but all students submit individually.
 
-1. A DMA controller has five channels. The controller is capable of requesting a 32-bit word every 40 nsec. A response takes equally long. How fast does the bus have to be to avoid being a bottleneck?
+## Recall (2 questions)
 
-2. Explain how an OS can facilitate installation of a new device without any need for recompiling the OS.
+**Q1.** `[Recall]` State the four properties of a precise interrupt. For each,
+explain in one sentence why violating it would make interrupt handlers harder
+to debug or restart.
 
-3. Why are output files for the printer normally spooled on disk before being printed?
+**Q2.** `[Recall]` Name the four layers of the classical I/O software stack from
+lowest to highest. For each layer, state one responsibility that does NOT belong
+in any of the other three.
 
-4. What are the advantages and disadvantages of optical disks versus magnetic disks?
+## Apply (3 questions)
 
-5. A computer manufacturer decides to redesign the partition table of a Pentium hard disk to provide more than four partitions. What are some consequences of this change?
+**Q3.** `[Apply]` Given the disk request queue {10, 22, 20, 2, 40, 6, 38} with
+the arm initially at cylinder 20 and a seek cost of 6 ms per cylinder, compute
+the total seek time for (a) FCFS, (b) Shortest Seek First, (c) the Elevator
+algorithm initially moving upward. Show your work.
 
-6. After receiving a **SIGINT** character, the display driver discards all output currently queued for that display. Why?
+**Q4.** `[Apply]` A DMA controller has five channels. Each channel requests a
+32-bit word every 40 ns, and a response takes equally long. Compute the minimum
+bus bandwidth in MB/s. Then explain in one sentence why this question is almost
+meaningless on a 2026 system.
 
-7. Many versions of UNIX use an unsigned 32-bit integer to keep track of the time as the number of seconds since the origin of time. When will these systems wrap around (year and month)? Do you expect this to actually happen?
+**Q5.** `[Apply]` A CECS 326 student runs the same small program on two laptops.
+Laptop A has a 7200 RPM SATA HDD; Laptop B has a PCIe Gen4 NVMe SSD. The program
+issues 10,000 random 4 KB reads. Estimate the elapsed time on each laptop and
+explain which component of disk access (seek / rotation / transfer) dominates
+on each.
 
-8. Disk requests come in to the disk driver for cylinders 10, 22, 20, 2, 40, 6, and 38, in that order. A seek takes *6 msec* per cylinder.
-    How much seek time is needed for:
-        a. First-come, first served
-        b. Closest cylinder next
-        c. Elevator algorithm (initially moving upward)
-    In all cases, the arm is initially at cylinder 20.
+## Analyze (5 questions)
 
-9. Describe two advantages and two disadvantages of thin client computing.
+**Q6.** `[Analyze]` The July 2024 CrowdStrike Falcon outage was caused by a
+null-pointer dereference in a kernel-mode driver reading a malformed channel
+file. Using the four-layer I/O software model, identify which layer(s) the bug
+lived in, and discuss whether a user-mode driver framework (Windows UMDF,
+macOS DriverKit) would have prevented the outage. What would moving Falcon to
+user mode have cost?
 
-10. A notebook computer is set up to take maximum advantage of power saving features including shutting down the display and the hard disk after periods of inactivity. A user sometimes runs UNIX programs in text mode, and at other times uses the X Window System. She is surprised to find that battery life is significantly better when she uses text-only programs. Why?
+**Q7.** `[Analyze]` Reading Q5 asks what happens if a manufacturer redesigns the
+MBR partition table to allow more than four partitions. Answer the question,
+then extend it: explain why the industry eventually adopted GPT instead of
+extending MBR, and what GPT gave up in exchange. Your answer should reference
+at least one concrete 2026 system that still requires MBR for compatibility.
+
+**Q8.** `[Analyze]` Elevator disk scheduling was designed to minimize arm motion
+on spinning media. For modern NVMe SSDs the default Linux scheduler is `none`.
+Defend or refute the following claim: "Disk arm scheduling algorithms are a
+purely historical topic in 2026 and should be removed from the CECS 326
+curriculum." Your answer should name at least one scenario where reordering is
+still useful even in the absence of seek cost.
+
+**Q9.** `[Analyze]` `io_uring` gives 2–10× throughput improvement for I/O-dense
+workloads by replacing per-operation syscalls with a shared ring buffer. In
+2023 it was also the origin of the majority of Linux kernel exploits. Evaluate
+the tradeoff: for which applications is `io_uring` worth enabling, and which
+applications should leave it off? Use the six I/O software goals from Session 1
+to structure your answer.
+
+**Q10.** `[Analyze]` Reading Q10 explains why a laptop's battery lasts longer
+in text mode than under X Windows. Rewrite the answer for a 2026 laptop with an
+OLED display, an NVMe SSD, a modern ARM or x86 CPU with fine-grained idle
+states, and a modern wayland compositor. Which hardware still dominates the
+power budget? Which factors from the original 2013-era answer no longer apply?
+
+### Collaboration
+
+You may work with one or two partners but all students must submit individually.
 
 ### Deliverables
 * Your writeup file *must* be done in [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) format and must be included in the repository as a separate file. View the file [`README.md`](README.md?plain=1) for an example of Markdown.
